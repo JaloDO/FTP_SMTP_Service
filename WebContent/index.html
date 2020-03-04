@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insertar Alumno</title>
+
+<script>
+
+function crearDirectorioFTP(id){
+
+				//alert(id);
+
+                var request = new XMLHttpRequest();
+                request.open("POST", "crearFTP", true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.onreadystatechange = function() {
+                        // si la respuesta fue exitosa
+                        if(request.readyState == 4 && request.status == 200) {
+                               
+                        } 
+                        // si la respuesta trajo error
+                        else if(request.readyState == 4 && request.status != 200){
+                        	
+                                
+                        }
+                };
+                request.send("id="+id);
+                //request.send("nombre="+nombre);
+                //request.send("nombre="+nombre+"&curso="+curso);
+                
+}
+    
+function enviarDatos(){   
+ 
+    
+  
+    var nombreVar = document.getElementById("nombre").value;
+    var apellidoVar = document.getElementById("apellido").value;
+    var cursoVar = document.getElementById("curso").value;
+    var emailVar = document.getElementById("email").value;
+
+
+    
+                var request = new XMLHttpRequest();
+                request.open("POST", "clase", true);
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.onreadystatechange = function() {
+                        // si la respuesta fue exitosa
+                        if(request.readyState == 4 && request.status == 200) {
+                                document.getElementById("tabla").innerHTML = this.responseText;
+                        } 
+                        // si la respuesta trajo error
+                        else if(request.readyState == 4 && request.status != 200){
+                        	
+                                document.getElementById("tabla").innerHTML = this.responseText;
+                        }
+                };
+                request.send("nombre="+nombreVar+"&apellido="+apellidoVar+"&curso="+cursoVar+"&email="+emailVar);
+ }   
+</script>
+
+</head>
+<body>
+	<h2>Insertar Alumno</h2>
+	<form action="clase" id="formRegistrar" onsubmit="enviarDatos()">
+		<div>
+			<table>
+				<tr>
+					<td>Nombre:</td>
+					<td>Apellido:</td>
+					<td>Email:</td>
+					
+				</tr>
+				<tr>
+					<td><input type="text" id="nombre"/></td>
+					<td><input type="text" id="apellido"/></td>
+					<td><input type="text" id="email"/></td>
+					<td>
+						<select id ="curso">
+								<option disabled selected>Curso</option>
+								<option value="1DAMDAW">1º DAM/DAW</option>
+								<option value="2DAM">2º DAM</option>
+								<option value="2DAW">2º DAW</option>
+								<option value="1ASIR">1º ASIR</option>
+								<option value="2ASIR"> 2º ASIR</option>
+							</optgroup>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<input type="button" value="Añadir" onclick="enviarDatos()"/>
+		</div>
+		
+	</form>
+	<div id="tabla"></div>
+</body>
+</html>
